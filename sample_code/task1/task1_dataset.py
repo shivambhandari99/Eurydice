@@ -103,7 +103,7 @@ class RoadDataset(torch.utils.data.Dataset):
                 master_line = []
                 for coordinate in feature['geometry']['coordinates']:
                     try:
-                        master_line.append(retrieve_pixel_value(tuple(coordinate),ds))
+                        master_line.append(RoadDataset.retrieve_pixel_value(tuple(coordinate),ds))
                     except Exception as e:
                         print("Error caused by:")
                         print(e)
@@ -117,7 +117,7 @@ class RoadDataset(torch.utils.data.Dataset):
                     master_line = []
                     for inner_coordinate in coordinate:
                         try:
-                            master_line.append(retrieve_pixel_value(tuple(inner_coordinate),ds))
+                            master_line.append(RoadDataset.retrieve_pixel_value(tuple(inner_coordinate),ds))
                         except Exception as e:
                             print("Error caused by:")
                             print(e)
