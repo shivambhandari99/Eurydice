@@ -52,9 +52,8 @@ class RoadDataset(torch.utils.data.Dataset):
         mask = self.caclulate_mask(tif_path, geojson_path, line_thickness = 30, color = (1,1,1))
         
 
-        if self.transform:
-            img = self.transform(img)
-            mask = self.transform(mask)
+        img = self.transform(img)
+        mask = self.transform(mask)
         complementary_mask = np.invert(mask)
         mask = np.stack(mask,complementary_mask)
         return img, mask
