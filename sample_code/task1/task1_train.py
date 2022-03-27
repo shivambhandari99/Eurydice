@@ -20,7 +20,7 @@ import torch.nn.functional as F
 
 from task1_dataset import RoadDataset
 import task1_model_fcn 
-from task1_model_unet import UNet_ResNet
+#from task1_model_unet import UNet_ResNet
 
 
 
