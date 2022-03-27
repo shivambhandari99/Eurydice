@@ -26,7 +26,6 @@ import affine
 class RoadDataset(torch.utils.data.Dataset):
     def __init__(self, root, transforms, img_name_prefix = 'SN3_roads_train_AOI_2_Vegas_PS-RGB_'):
         self.root = root
-        print(root)
         self.transforms = transforms
 
         self.jsons = list(sorted(os.listdir(os.path.join(root, "geojson_roads"))))
@@ -44,13 +43,11 @@ class RoadDataset(torch.utils.data.Dataset):
         # 2. Read image and calculate the mask 
         # 3. Apply transformations
         # 4. Return image and mask 
-
-
-        img = 0
-        mask = 0
-
-
-
+        tif_path = self.root + self.imgs[idx]
+        geojson_path = self.root + self.jsons[idx]
+        img, mask = gdal.Open(tif_path).ReadAsArray(), self.caclulate_mask(tif_path, geojson_path, line_thickness = 30, color = (1,1,1))
+        complementary_mask = np.invert(mask)
+        mask = np.stack(mask,complementary_mask)
         return img, mask
 
     def retrieve_pixel_value(geo_coord, data_source):
