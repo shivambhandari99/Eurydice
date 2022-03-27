@@ -21,6 +21,7 @@ from osgeo import gdal
 
 import geojson
 
+import affine
 
 class RoadDataset(torch.utils.data.Dataset):
     def __init__(self, root, transforms, img_name_prefix = 'SN3_roads_train_AOI_2_Vegas_PS-RGB_'):
@@ -46,6 +47,20 @@ class RoadDataset(torch.utils.data.Dataset):
 
 
         return img, mask
+
+    def retrieve_pixel_value(geo_coord, data_source):
+        """Return floating-point value that corresponds to given point."""
+        x, y = geo_coord[0], geo_coord[1]
+        forward_transform =  \
+            affine.Affine.from_gdal(*data_source.GetGeoTransform())
+        reverse_transform = ~forward_transform
+        px, py = reverse_transform * (x, y)
+        px, py = int(px + 0.5), int(py + 0.5)
+        pixel_coord = px, py
+
+        data_array = np.array(data_source.GetRasterBand(1).ReadAsArray())
+        return [pixel_coord[0],pixel_coord[1]]
+
     
     def caclulate_mask(self,tif_path, geojson_path, line_thickness = 30, color = (1,1,1)):
         
@@ -64,6 +79,41 @@ class RoadDataset(torch.utils.data.Dataset):
         mask_img = np.zeros((ds.RasterXSize, ds.RasterYSize, 3)).astype(np.float32)
 
         
+
+        isClosed = False
+
+        # Line thickness of 2 px
+        thickness = line_thickness
+
+
+        for feature in vector_data['features']:
+            if(feature['geometry']['type'] == "LineString"):
+                master_line = []
+                for coordinate in feature['geometry']['coordinates']:
+                    try:
+                        master_line.append(retrieve_pixel_value(tuple(coordinate),ds))
+                    except Exception as e:
+                        print("Error caused by:")
+                        print(coordinate,master_line)
+                        continue
+                master_line = np.asarray(master_line,dtype=np.float32)
+                master_line = master_line.reshape((-1, 1, 2))
+                mask_img = cv2.polylines(mask_img, np.int32([master_line]), isClosed, color, thickness)
+            else:
+                for coordinate in feature['geometry']['coordinates']:
+                    master_line = []
+                    for inner_coordinate in coordinate:
+                        try:
+                            master_line.append(retrieve_pixel_value(tuple(inner_coordinate),ds))
+                        except Exception as e:
+                            print("Error caused by 2:")
+                            print(e)
+                            print(inner_coordinate,master_line)
+                            continue
+                    master_line = np.asarray(master_line,dtype=np.float32)
+                    master_line = master_line.reshape((-1, 1, 2))
+                    mask_img = cv2.polylines(mask_img, np.int32([master_line]), isClosed, color, thickness)
+
         
         # TODO
         # 1. Parse vector_data dictionary and process each feature
