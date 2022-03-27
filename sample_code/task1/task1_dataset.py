@@ -26,14 +26,13 @@ import affine
 class RoadDataset(torch.utils.data.Dataset):
     def __init__(self, root, transforms, img_name_prefix = 'SN3_roads_train_AOI_2_Vegas_PS-RGB_'):
         self.root = root
+        print(root)
         self.transforms = transforms
 
         self.jsons = list(sorted(os.listdir(os.path.join(root, "geojson_roads"))))
         
         self.imgs = [ img_name_prefix + json_name.split('_')[-1].split('.geojson')[0]+'.tif'
                      for json_name in self.jsons]
-        print(self.jsons[1000])
-        print(self.imgs[1000])
 
     
         
