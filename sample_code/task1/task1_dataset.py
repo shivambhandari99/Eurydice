@@ -59,6 +59,7 @@ class RoadDataset(torch.utils.data.Dataset):
         mask = np.stack(mask,complementary_mask)
         return img, mask
 
+    @staticmethod
     def retrieve_pixel_value(geo_coord, data_source):
         """Return floating-point value that corresponds to given point."""
         x, y = geo_coord[0], geo_coord[1]
