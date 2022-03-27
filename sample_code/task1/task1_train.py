@@ -55,8 +55,10 @@ def main(args):
 
     for epoch in range(epochs):      
         model.train()         
-        for ii, (data, target) in enumerate(train_loader):   
-            print("noob")
+        for ii, (data, target) in enumerate(train_loader):
+            print(data)
+            print(target)
+            exit(1)
 
             # TODO
             # 1. get data from train_loader          
