@@ -45,7 +45,11 @@ class RoadDataset(torch.utils.data.Dataset):
         # 4. Return image and mask 
         tif_path = self.root + self.imgs[idx]
         geojson_path = self.root + self.jsons[idx]
-        img, mask = gdal.Open(tif_path).ReadAsArray(), self.caclulate_mask(tif_path, geojson_path, line_thickness = 30, color = (1,1,1))
+        ds = gdal.Open(tif_path)
+        img = ds.ReadAsArray()
+        mask = self.caclulate_mask(tif_path, geojson_path, line_thickness = 30, color = (1,1,1))
+        
+
         if self.transform:
             img = self.transform(img)
             mask = self.transform(mask)
