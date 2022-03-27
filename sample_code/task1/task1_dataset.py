@@ -44,6 +44,9 @@ class RoadDataset(torch.utils.data.Dataset):
         # 3. Apply transformations
         # 4. Return image and mask 
 
+        img = 0
+        mask = 0
+
 
 
         return img, mask
@@ -94,6 +97,7 @@ class RoadDataset(torch.utils.data.Dataset):
                         master_line.append(retrieve_pixel_value(tuple(coordinate),ds))
                     except Exception as e:
                         print("Error caused by:")
+                        print(e)
                         print(coordinate,master_line)
                         continue
                 master_line = np.asarray(master_line,dtype=np.float32)
@@ -106,7 +110,7 @@ class RoadDataset(torch.utils.data.Dataset):
                         try:
                             master_line.append(retrieve_pixel_value(tuple(inner_coordinate),ds))
                         except Exception as e:
-                            print("Error caused by 2:")
+                            print("Error caused by:")
                             print(e)
                             print(inner_coordinate,master_line)
                             continue
