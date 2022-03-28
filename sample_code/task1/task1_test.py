@@ -46,7 +46,7 @@ def main(args):
 
     for img_path in img_path_list:
         #img = cv2.imread(os.path.join(test_dir,"PS-RGB",img_path))
-        ds = gdal.Open(test_dir+img_path)
+        ds = gdal.Open(test_dir+'/PS-RGB/'+img_path)
         img = ds.ReadAsArray()
         img = img.astype(np.int16)
         img_0 = torch.squeeze(self.transforms(img[0]))
