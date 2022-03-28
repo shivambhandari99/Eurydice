@@ -42,12 +42,14 @@ class RoadDataset(torch.utils.data.Dataset):
         # 1. Get image and vector data path according to the idx
         # 2. Read image and calculate the mask 
         # 3. Apply transformations
-        # 4. Return image and mask 
+        # 4. Return image and mask
+        print("----") 
         tif_path = self.root + '/PS-RGB/' + self.imgs[idx]
         geojson_path = self.root + '/geojson_roads/' + self.jsons[idx]
         ds = gdal.Open(tif_path)
         img = ds.ReadAsArray()
         img = img.astype(np.int16)
+        print(img.shape)
         img_0 = self.transforms(img[0])
         img_1 = self.transforms(img[1])
         img_2 = self.transforms(img[2])
