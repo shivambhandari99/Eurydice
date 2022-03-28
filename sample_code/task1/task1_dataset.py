@@ -60,7 +60,8 @@ class RoadDataset(torch.utils.data.Dataset):
 
         complementary_mask[where_0] = 1
         complementary_mask[where_1] = 0
-
+        print("in get item")
+        print(img.dtype)
         complementary_mask = self.transforms(complementary_mask)
         mask = self.transforms(mask)
         mask = torch.stack([mask,complementary_mask])
