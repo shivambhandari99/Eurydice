@@ -63,7 +63,7 @@ def main(args):
         #img.to(device)
         print("in test item")
         print(img.dtype)
-
+        img = img.to(torch.short)
         outputs = model(img)
 
         print(outputs)
