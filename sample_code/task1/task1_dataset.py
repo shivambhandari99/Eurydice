@@ -148,7 +148,8 @@ class RoadDataset(torch.utils.data.Dataset):
         # Hint: the number of channels for mask_img should be 2
 
         
-                
+        mask_img = mask_img[0, :, :]
+        
         return mask_img
 
     def __len__(self):
