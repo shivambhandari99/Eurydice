@@ -43,8 +43,18 @@ def main(args):
     model.eval()
 
     for img_path in img_path_list:
-        img = cv2.imread(os.path.join(test_dir,"PS-RGB",img_path))
+        #img = cv2.imread(os.path.join(test_dir,"PS-RGB",img_path))
+        ds = gdal.Open(img_path)
+        img = ds.ReadAsArray()
+        img = img.astype(np.int16)
+        img_0 = torch.squeeze(self.transforms(img[0]))
+        img_1 = torch.squeeze(self.transforms(img[1]))
+        img_2 = torch.squeeze(self.transforms(img[2]))
+        img = torch.stack([img_0,img_1,img_2])
 
+        outputs = net(img)
+
+        print(outputs)
         # TODO
         # 1. load test image
         # 2. convert test image into tensor
