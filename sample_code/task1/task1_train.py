@@ -54,12 +54,15 @@ def main(args):
 
 
     for epoch in range(epochs):      
-        model.train()         
+        model.train()
+        running_loss = 0.0         
         for ii, (data, target) in enumerate(train_loader):
-            print(data)
-            print(target)
-            exit(1)
-
+            inputs, labels = data.to(device), target.to(device)
+            optimizer.zero_grad()
+            outputs = model(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
             # TODO
             # 1. get data from train_loader          
             # 2. set all tensor gradients to be 0.
@@ -67,10 +70,9 @@ def main(args):
             # 4. calculate the loss of ground-truth (GT) and prediction
             # 5. back propagation
 
-              
-
-        print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, loss.item()))
-        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
+            if(ii%100==99):
+                print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, loss.item()))
+                #torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
 
 
 if __name__ == '__main__':
