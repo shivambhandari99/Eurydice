@@ -47,9 +47,12 @@ class RoadDataset(torch.utils.data.Dataset):
         geojson_path = self.root + '/geojson_roads/' + self.jsons[idx]
         ds = gdal.Open(tif_path)
         img = ds.ReadAsArray()
-        print(img.shape)
+        img = img.astype(np.int16)
+        img_0 = self.transforms(img[0])
+        img_1 = self.transforms(img[1])
+        img_2 = self.transforms(img[2])
+        img = torch.stack([img_0,img_1,img_2])
         mask = self.caclulate_mask(tif_path, geojson_path, line_thickness = 30, color = (1,1,1))
-        print(mask.dtype)
         complementary_mask = mask
         where_0 = np.where(mask == 0)
         where_1 = np.where(mask == 1)
@@ -57,13 +60,6 @@ class RoadDataset(torch.utils.data.Dataset):
         complementary_mask[where_0] = 1
         complementary_mask[where_1] = 0
 
-        #complementary_mask = np.where((mask==0)|(mask==1), mask^1, mask)
-
-        #print(type(img))
-        img = img.astype(np.int16)
-        print(img.shape)
-        img = self.transforms(img)
-        print(img.data.shape)
         complementary_mask = self.transforms(complementary_mask)
         mask = self.transforms(mask)
         mask = torch.stack([mask,complementary_mask])
