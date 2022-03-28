@@ -43,20 +43,16 @@ class RoadDataset(torch.utils.data.Dataset):
         # 2. Read image and calculate the mask 
         # 3. Apply transformations
         # 4. Return image and mask
-        print("----") 
         tif_path = self.root + '/PS-RGB/' + self.imgs[idx]
         geojson_path = self.root + '/geojson_roads/' + self.jsons[idx]
         ds = gdal.Open(tif_path)
         img = ds.ReadAsArray()
         img = img.astype(np.int16)
-        print(img.shape)
 
         img_0 = torch.squeeze(self.transforms(img[0]))
         img_1 = torch.squeeze(self.transforms(img[1]))
         img_2 = torch.squeeze(self.transforms(img[2]))
-        print(img_0.shape)
         img = torch.stack([img_0,img_1,img_2])
-        print(img.shape)
         mask = self.caclulate_mask(tif_path, geojson_path, line_thickness = 30, color = (1,1,1))
         complementary_mask = mask
         where_0 = np.where(mask == 0)
@@ -69,7 +65,6 @@ class RoadDataset(torch.utils.data.Dataset):
         mask = self.transforms(mask)
         mask = torch.stack([mask,complementary_mask])
         mask = torch.squeeze(mask)
-        print(mask.shape)
         return img, mask
 
     @staticmethod
