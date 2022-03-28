@@ -58,12 +58,14 @@ def main(args):
     for epoch in range(epochs):      
         model.train()
         running_loss = 0.0         
+        print(len(train_loader))
         for ii, (data, target) in enumerate(train_loader):
             inputs, labels = data.to(device), target.to(device)
             inputs = inputs.float()
             optimizer.zero_grad()
             outputs = model(inputs)
             loss = criterion(outputs['out'], labels)
+            running_loss += loss.item()
             loss.backward()
             optimizer.step()
             # TODO
@@ -73,9 +75,8 @@ def main(args):
             # 4. calculate the loss of ground-truth (GT) and prediction
             # 5. back propagation
 
-            if(ii):
-                print('Index: {} Epoch: {} - Loss: {:.6f}'.format(ii,epoch + 1, loss.item()))
-                #torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
+        print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, loss.item()))
+        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
 
 
 if __name__ == '__main__':
