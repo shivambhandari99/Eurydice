@@ -40,8 +40,9 @@ def main(args):
     else:
         model = task1_model_fcn.fcn_model
 
-    model.to(device)
+    #model.to(device)
     model.load_state_dict(torch.load(model_save_path))
+    model.to(device)
 
     model.eval()
 
