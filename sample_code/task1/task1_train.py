@@ -58,7 +58,6 @@ def main(args):
     for epoch in range(epochs):      
         model.train()
         running_loss = 0.0         
-        print(len(train_loader))
         for ii, (data, target) in enumerate(train_loader):
             inputs, labels = data.to(device), target.to(device)
             inputs = inputs.float()
@@ -76,6 +75,7 @@ def main(args):
             # 5. back propagation
 
         print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, loss.item()))
+        running_loss = 0.0
         torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
 
 
