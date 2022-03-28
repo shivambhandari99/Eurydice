@@ -34,9 +34,6 @@ def main(args):
     img_path_list = sorted(os.listdir(os.path.join(test_dir, "PS-RGB")))
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-    print("Cuda:")
-    print(torch.cuda.is_available())
-    print(device)
     if is_unet:
         model = UNet_ResNet(n_class=1)
     else:
@@ -63,10 +60,7 @@ def main(args):
         img = torch.stack([img_0,img_1,img_2])
         img = img[None, :]
         img = img.to(device)
-        print(img.is_cuda)
-        print("in test item")
-        print(img.dtype)
-        outputs = model(img)
+        outputs = model(img.long())
 
         print(outputs)
         # TODO
