@@ -42,6 +42,8 @@ def main(args):
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
+    print(torch.cuda.is_available())
+    print(torch.cuda.device_count())
     if is_unet:
         model = UNet_ResNet(n_class=2)
     else:
@@ -71,8 +73,8 @@ def main(args):
             # 4. calculate the loss of ground-truth (GT) and prediction
             # 5. back propagation
 
-            if(ii%100==99):
-                print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, loss.item()))
+            if(ii):
+                print('Index: {} Epoch: {} - Loss: {:.6f}'.format(ii,epoch + 1, loss.item()))
                 #torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
 
 
