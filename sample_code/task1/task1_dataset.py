@@ -50,15 +50,12 @@ class RoadDataset(torch.utils.data.Dataset):
         img = ds.ReadAsArray()
         img = img.astype(np.int16)
         print(img.shape)
-        """
-        img_0 = self.transforms(img[0])
-        img_1 = self.transforms(img[1])
-        img_2 = self.transforms(img[2])
-        
+
+        img_0 = torch.squeeze(self.transforms(img[0]))
+        img_1 = torch.squeeze(self.transforms(img[1]))
+        img_2 = torch.squeeze(self.transforms(img[2]))
         print(img_0.shape)
         img = torch.stack([img_0,img_1,img_2])
-        """
-        img = self.transforms(img)
         print(img.shape)
         mask = self.caclulate_mask(tif_path, geojson_path, line_thickness = 30, color = (1,1,1))
         complementary_mask = mask
