@@ -13,6 +13,7 @@ import numpy as np
 
 import torch 
 import torchvision
+from torchvision import transforms
 
 import task1_dataset
 import task1_model_fcn 
