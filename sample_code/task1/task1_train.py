@@ -58,6 +58,7 @@ def main(args):
         running_loss = 0.0         
         for ii, (data, target) in enumerate(train_loader):
             inputs, labels = data.to(device), target.to(device)
+            inputs = inputs.float()
             optimizer.zero_grad()
             outputs = model(inputs)
             loss = criterion(outputs, labels)
