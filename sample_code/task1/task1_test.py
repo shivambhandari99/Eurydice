@@ -63,10 +63,9 @@ def main(args):
         #img.to(device)
         print("in test item")
         print(img.dtype)
-        img = img.to(torch.short)
         outputs = model(img)
 
-        print(outputs)
+        print(outputs.short())
         # TODO
         # 1. load test image
         # 2. convert test image into tensor
