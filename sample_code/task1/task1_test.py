@@ -43,15 +43,19 @@ def main(args):
     model.load_state_dict(torch.load(model_save_path))
 
     model.eval()
+    
+    data_transf = transforms.Compose([transforms.ToTensor(),
+                                 transforms.Scale((256, 256))
+                                 ])
 
     for img_path in img_path_list:
         #img = cv2.imread(os.path.join(test_dir,"PS-RGB",img_path))
         ds = gdal.Open(test_dir+'/PS-RGB/'+img_path)
         img = ds.ReadAsArray()
         img = img.astype(np.int16)
-        img_0 = torch.squeeze(self.transforms(img[0]))
-        img_1 = torch.squeeze(self.transforms(img[1]))
-        img_2 = torch.squeeze(self.transforms(img[2]))
+        img_0 = torch.squeeze(data_transf(img[0]))
+        img_1 = torch.squeeze(data_transf(img[1]))
+        img_2 = torch.squeeze(data_transf(img[2]))
         img = torch.stack([img_0,img_1,img_2])
 
         outputs = net(img)
