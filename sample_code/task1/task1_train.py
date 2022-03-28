@@ -61,10 +61,7 @@ def main(args):
             inputs = inputs.float()
             optimizer.zero_grad()
             outputs = model(inputs)
-            print(outputs)
-            print(type(outputs))
-            print(type(labels))
-            loss = criterion(outputs, labels)
+            loss = criterion(outputs['out'], labels)
             loss.backward()
             optimizer.step()
             # TODO
