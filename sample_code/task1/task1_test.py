@@ -63,9 +63,9 @@ def main(args):
         #img.to(device)
         print("in test item")
         print(img.dtype)
-        outputs = model(img)
+        outputs = model(img.short())
 
-        print(outputs.short())
+        print(outputs)
         # TODO
         # 1. load test image
         # 2. convert test image into tensor
