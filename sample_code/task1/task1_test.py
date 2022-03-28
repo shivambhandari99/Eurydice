@@ -60,7 +60,7 @@ def main(args):
         img = torch.stack([img_0,img_1,img_2])
         img = img[None, :]
         img = img.to(device)
-        outputs = model(img.long())
+        outputs = model(img.float())
 
         print(outputs)
         # TODO
