@@ -60,6 +60,7 @@ class RoadDataset(torch.utils.data.Dataset):
 
         #print(type(img))
         img = img.astype(np.int16)
+        print(img.size())
         img = self.transforms(img)
         print(img.size())
         complementary_mask = self.transforms(complementary_mask)
