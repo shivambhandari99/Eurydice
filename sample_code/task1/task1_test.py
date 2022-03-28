@@ -16,6 +16,8 @@ import torchvision
 
 import task1_dataset
 import task1_model_fcn 
+from osgeo import gdal
+
 #from task1_model_unet import UNet_ResNet
 
 #from matplotlib import pyplot as plt
