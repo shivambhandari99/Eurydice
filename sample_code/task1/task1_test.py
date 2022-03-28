@@ -42,7 +42,7 @@ def main(args):
 
     #model.to(device)
     model.load_state_dict(torch.load(model_save_path))
-    model.to(device)
+    #model.to(device)
 
     model.eval()
 
@@ -60,7 +60,7 @@ def main(args):
         img_2 = torch.squeeze(data_transf(img[2]))
         img = torch.stack([img_0,img_1,img_2])
         img = img[None, :]
-        img.to(device)
+        #img.to(device)
         outputs = model(img)
 
         print(outputs)
