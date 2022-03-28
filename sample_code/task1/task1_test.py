@@ -44,7 +44,7 @@ def main(args):
     model.load_state_dict(torch.load(model_save_path))
 
     model.eval()
-    
+
     data_transf = transforms.Compose([transforms.ToTensor(),
                                  transforms.Scale((256, 256))
                                  ])
@@ -58,6 +58,7 @@ def main(args):
         img_1 = torch.squeeze(data_transf(img[1]))
         img_2 = torch.squeeze(data_transf(img[2]))
         img = torch.stack([img_0,img_1,img_2])
+        img = img[None, :]
 
         outputs = model(img)
 
