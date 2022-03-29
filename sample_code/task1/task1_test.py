@@ -18,6 +18,8 @@ from torchvision import transforms
 import task1_dataset
 import task1_model_fcn 
 from osgeo import gdal
+import sys
+np.set_printoptions(threshold=sys.maxsize)
 
 #from task1_model_unet import UNet_ResNet
 
