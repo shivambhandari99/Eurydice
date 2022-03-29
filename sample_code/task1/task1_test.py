@@ -64,7 +64,7 @@ def main(args):
         img = img.to(device)
         outputs = model(img.float())
 
-        print(outputs['out'])
+        print(type(outputs['out']))
         print(outputs['out'].shape)
         # TODO
         # 1. load test image
