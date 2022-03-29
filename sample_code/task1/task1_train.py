@@ -41,7 +41,7 @@ def main(args):
     road_dataset_train = RoadDataset(root = train_dir, transforms = data_transf, img_name_prefix = train_prefix)
     train_set, val_set = torch.utils.data.random_split(road_dataset_train, [900, 128])
     train_loader = DataLoader(dataset = train_set, batch_size=4)
-    val_loader = DataLoader(dataset = val_set, batch_size=4)
+    val_loader = DataLoader(dataset = val_set, batch_size=1)
 
     #train_size = int(0.8 * len(full_dataset))
     #test_size = len(full_dataset) - train_size
