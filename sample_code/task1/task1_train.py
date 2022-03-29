@@ -38,7 +38,7 @@ def main(args):
                                  transforms.Scale((256, 256))
                                  ])
     road_dataset_train = RoadDataset(root = train_dir, transforms = data_transf, img_name_prefix = train_prefix)
-    train_set, val_set = torch.utils.data.random_split(dataset, [900, 128])
+    train_set, val_set = torch.utils.data.random_split(road_dataset_train, [900, 128])
     train_loader = DataLoader(dataset = train_set, batch_size=4)
     val_loader = DataLoader(dataset = val_set, batch_size=4)
 
