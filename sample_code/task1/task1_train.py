@@ -25,6 +25,7 @@ import task1_model_fcn
 
 
 def main(args):
+    torch.cuda.empty_cache()
 
     train_dir = args.input_dir
     model_save_dir = args.model_dir
