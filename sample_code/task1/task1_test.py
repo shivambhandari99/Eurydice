@@ -63,7 +63,7 @@ def main(args):
         outputs = model(img.float())
 
         print(outputs)
-        print(outputs.shape)
+        print(outputs['out'].shape)
         # TODO
         # 1. load test image
         # 2. convert test image into tensor
