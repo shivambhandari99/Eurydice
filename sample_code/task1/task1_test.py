@@ -68,6 +68,7 @@ def main(args):
         print(probs.shape)
         print(probs[0][0].shape)
         print(probs[0][1].shape)
+        out_img = torch.mul(probs[0][0],256)
         # TODO
         # 1. load test image
         # 2. convert test image into tensor
