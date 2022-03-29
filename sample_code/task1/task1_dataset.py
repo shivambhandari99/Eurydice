@@ -68,7 +68,7 @@ class RoadDataset(torch.utils.data.Dataset):
         complementary_mask = self.transforms(complementary_mask)
         mask = self.transforms(mask)
         print(mask)
-        #torch.save(mask,'tensor.pt')
+        torch.save(mask,'mask.pt')
         print(tif_path)
         exit(1)
         mask = torch.stack([mask,complementary_mask])
@@ -150,8 +150,6 @@ class RoadDataset(torch.utils.data.Dataset):
         # 3. Plot the line on mask_img with cv2.polylines() function.
         # 4. Return the mask image
         # Hint: the number of channels for mask_img should be 2
-        print("B4")
-        print(mask_img.shape)
         mask_img = mask_img[:, :, 0]
         
         return mask_img
