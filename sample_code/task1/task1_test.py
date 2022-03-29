@@ -65,6 +65,7 @@ def main(args):
         outputs = model(img.float())
         probs = torch.nn.functional.softmax(outputs['out'], dim=0)
         print(probs)
+        print(probs.shape)
         # TODO
         # 1. load test image
         # 2. convert test image into tensor
