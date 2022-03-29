@@ -84,6 +84,7 @@ def main(args):
         print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, running_loss/len(train_set)))
         running_loss = 0.0
         torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
+        """
         gc.collect()
         torch.cuda.empty_cache()
 
@@ -98,6 +99,7 @@ def main(args):
         print(val_loss)
         print(sum(val_loss)/len(val_set))
         print("------------------------")
+        """
 
 
 
