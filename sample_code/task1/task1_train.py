@@ -9,7 +9,7 @@
 import argparse
 import os 
 
-import torch
+import torch, gc
 import torch.nn as nn
 import torch.optim as optim 
 
@@ -84,6 +84,9 @@ def main(args):
         print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, running_loss/len(train_set)))
         running_loss = 0.0
         torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
+        gc.collect()
+        torch.cuda.empty_cache()
+
         val_loss = []
         for ii, (data, target) in enumerate(train_loader):
             inputs, labels = data.to(device), target.to(device)
