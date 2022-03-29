@@ -33,6 +33,8 @@ class RoadDataset(torch.utils.data.Dataset):
         self.imgs = [ img_name_prefix + json_name.split('_')[-1].split('.geojson')[0]+'.tif'
                      for json_name in self.jsons]
 
+        print(len(self.imgs))
+
     
         
     def __getitem__(self, idx):
