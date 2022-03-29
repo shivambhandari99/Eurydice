@@ -64,7 +64,7 @@ def main(args):
         img = img.to(device)
         outputs = model(img.float())
 
-        print(outputs['out'].softmax())
+        print(softmax(outputs['out']))
         # TODO
         # 1. load test image
         # 2. convert test image into tensor
