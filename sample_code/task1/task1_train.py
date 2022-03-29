@@ -38,8 +38,9 @@ def main(args):
                                  transforms.Scale((256, 256))
                                  ])
     road_dataset_train = RoadDataset(root = train_dir, transforms = data_transf, img_name_prefix = train_prefix)
-    #train_set, val_set = torch.utils.data.random_split(dataset, [50000, 10000])
-    train_loader = DataLoader(dataset = road_dataset_train, batch_size=4)
+    train_set, val_set = torch.utils.data.random_split(dataset, [900, 128])
+    train_loader = DataLoader(dataset = train_set, batch_size=4)
+    val_loader = DataLoader(dataset = val_set, batch_size=4)
 
     #train_size = int(0.8 * len(full_dataset))
     #test_size = len(full_dataset) - train_size
@@ -79,9 +80,21 @@ def main(args):
             # 4. calculate the loss of ground-truth (GT) and prediction
             # 5. back propagation
 
-        print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, running_loss))
+        print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, running_loss/len(train_set)))
         running_loss = 0.0
         torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
+        val_loss = []
+        for ii, (data, target) in enumerate(train_loader):
+            inputs, labels = data.to(device), target.to(device)
+            inputs = inputs.float()
+            outputs = model(inputs)
+            loss = criterion(outputs['out'], labels)
+            val_loss.append(loss)
+        print("Validation loss is: ")
+        print(val_loss)
+        print(sum(val_loss)/len(val_set))
+        print("------------------------")
+
 
 
 if __name__ == '__main__':
