@@ -57,12 +57,7 @@ class RoadDataset(torch.utils.data.Dataset):
         print(mask.shape)
         np.save('mask', mask)
         print("----")
-        complementary_mask = mask
-        where_0 = np.where(mask == 0)
-        where_1 = np.where(mask == 1)
-
-        complementary_mask[where_0] = 1
-        complementary_mask[where_1] = 0
+        complementary_mask = 1-mask
         print("in get item")
         print(img.dtype)
         complementary_mask = self.transforms(complementary_mask)
