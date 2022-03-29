@@ -65,6 +65,7 @@ def main(args):
         outputs = model(img.float())
 
         print(type(outputs['out']))
+        torch.save(outputs['out'], 'file.pt')
         print(outputs['out'].shape)
         # TODO
         # 1. load test image
