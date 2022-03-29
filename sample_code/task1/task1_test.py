@@ -81,7 +81,7 @@ def main(args):
         # Hint: output range need to be rescaled to [0,255] to save with cv2.imwrite()
 
 
-        
+        out_path = args.output_dir+'/'+img_path
         cv2.imwrite(out_path, out_img)
         
         
