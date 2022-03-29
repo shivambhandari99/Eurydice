@@ -37,7 +37,7 @@ class RoadDataset(torch.utils.data.Dataset):
         
     def __getitem__(self, idx):
 
-
+        #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
         # TODO
         # 1. Get image and vector data path according to the idx
         # 2. Read image and calculate the mask 
@@ -65,7 +65,8 @@ class RoadDataset(torch.utils.data.Dataset):
         complementary_mask = self.transforms(complementary_mask)
         mask = self.transforms(mask)
         print(mask)
-        torch.save(mask,'tensor.pt')
+        #torch.save(mask,'tensor.pt')
+        print(tif_path)
         exit(1)
         mask = torch.stack([mask,complementary_mask])
         mask = torch.squeeze(mask)
