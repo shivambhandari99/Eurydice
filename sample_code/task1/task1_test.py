@@ -68,8 +68,9 @@ def main(args):
         print(probs.shape)
         print(probs[0][0].shape)
         print(probs[0][1].shape)
-        out_img = torch.mul(probs[0][0],256)
+        out_img = torch.mul(probs[0][0],255)
         out_img = out_img.cpu().detach().numpy()
+        np.save('out_img', out_img)
 
         # TODO
         # 1. load test image
