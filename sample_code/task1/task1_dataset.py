@@ -53,6 +53,7 @@ class RoadDataset(torch.utils.data.Dataset):
         img_1 = torch.squeeze(self.transforms(img[1]))
         img_2 = torch.squeeze(self.transforms(img[2]))
         img = torch.stack([img_0,img_1,img_2])
+        torch.save(img, 'image.pt')
         mask = self.caclulate_mask(tif_path, geojson_path, line_thickness = 30, color = (1,1,1))
         np.save('mask', mask)
         complementary_mask = 1-mask
