@@ -69,6 +69,7 @@ class RoadDataset(torch.utils.data.Dataset):
         mask = self.transforms(mask)
         print(mask)
         torch.save(mask,'mask.pt')
+        torch.save(complementary_mask,'complementary_mask.pt')
         print(tif_path)
         exit(1)
         mask = torch.stack([mask,complementary_mask])
