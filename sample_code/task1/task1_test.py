@@ -91,7 +91,6 @@ def main(args):
         out_path = args.output_dir+'/'+img_path
         print(out_path)
         cv2.imwrite(out_path, out_img)
-        exit(1)
         
         
 if __name__ == '__main__':
