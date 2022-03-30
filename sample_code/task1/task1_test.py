@@ -64,7 +64,7 @@ def main(args):
         img = img.to(device)
         outputs = model(img.float())
         outputs = outputs.cpu().detach().numpy()
-        np.save(outputs,'outputs')
+        np.save(outputs['out'],'outputs')
         probs = torch.nn.functional.softmax(outputs['out'], dim=0)
         print(probs)
         print(probs.shape)
