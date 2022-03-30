@@ -63,6 +63,7 @@ def main(args):
         img = img[None, :]
         img = img.to(device)
         outputs = model(img.float())
+        torch.save(outputs, 'outputs.pt')
         outputs = outputs['out'].cpu().detach().numpy()
         print(type(outputs))
         np.save('outputs',outputs)
