@@ -11,7 +11,7 @@ import argparse
 import cv2
 import numpy as np
 
-import torch 
+import torch
 import torchvision
 from torchvision import transforms
 
@@ -63,6 +63,8 @@ def main(args):
         img = img[None, :]
         img = img.to(device)
         outputs = model(img.float())
+        outputs = outputs.cpu().detach().numpy()
+        np.save(outputs,'outputs')
         probs = torch.nn.functional.softmax(outputs['out'], dim=0)
         print(probs)
         print(probs.shape)
