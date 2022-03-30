@@ -65,7 +65,7 @@ def main(args):
         outputs = model(img.float())
         outputs = outputs['out'].cpu().detach().numpy()
         print(type(outputs))
-        np.save(outputs,'outputs')
+        np.save('outputs',outputs)
         probs = torch.nn.functional.softmax(outputs['out'], dim=0)
         print(probs)
         print(probs.shape)
