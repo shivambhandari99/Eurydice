@@ -73,6 +73,8 @@ def main(args):
             #print(outputs.shape)
             #print(type(outputs))
             loss = criterion(outputs, labels)
+            print(loss)
+            print(type(loss))
             running_loss += loss.item()
             loss.backward()
             optimizer.step()
