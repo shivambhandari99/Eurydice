@@ -70,6 +70,7 @@ def main(args):
             inputs = inputs.float()
             optimizer.zero_grad()
             outputs = model(inputs)
+            print(type(outputs))
             loss = criterion(outputs['out'], labels)
             running_loss += loss.item()
             loss.backward()
