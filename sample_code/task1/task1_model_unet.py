@@ -15,6 +15,7 @@ class UNet_ResNet(nn.Module):
 
         self.base_model = models.resnet18(pretrained=False)
         self.base_layers = list(self.base_model.children())
+        print(self.base_layers)
 
         self.layer0 = nn.Sequential(*self.base_layers[:3]) # size=(N, 64, x.H/2, x.W/2)
         self.layer0_1x1 = convrelu(64, 64, 1, 0)
