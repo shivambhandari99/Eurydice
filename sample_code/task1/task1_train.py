@@ -41,7 +41,7 @@ def main(args):
     road_dataset_train = RoadDataset(root = train_dir, transforms = data_transf, img_name_prefix = train_prefix)
     train_set, val_set = torch.utils.data.random_split(road_dataset_train, [900, 128])
     train_loader = DataLoader(dataset = train_set, batch_size=4)
-    val_loader = DataLoader(dataset = val_set, batch_size=1)
+    #val_loader = DataLoader(dataset = val_set, batch_size=1)
 
     #train_size = int(0.8 * len(full_dataset))
     #test_size = len(full_dataset) - train_size
@@ -86,6 +86,7 @@ def main(args):
         print('Epoch: {} - Loss: {:.6f}'.format(epoch + 1, running_loss/len(train_set)))
         running_loss = 0.0
         torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
+"""
         gc.collect()
         torch.cuda.empty_cache()
 
@@ -100,7 +101,7 @@ def main(args):
         print(val_loss)
         print(sum(val_loss)/len(val_set))
         print("------------------------")
-
+"""
 
 
 if __name__ == '__main__':
