@@ -57,6 +57,7 @@ def main(args):
         model = task1_model_fcn.fcn_model
 
     model.to(device)
+    print(model)
 
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), weight_decay=1e-3, lr = 0.001, momentum=0.9)
