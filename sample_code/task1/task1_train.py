@@ -72,7 +72,7 @@ def main(args):
             outputs = model(inputs)
             print(outputs.shape)
             print(type(outputs))
-            loss = criterion(outputs['out'], labels)
+            loss = criterion(outputs, labels)
             running_loss += loss.item()
             loss.backward()
             optimizer.step()
