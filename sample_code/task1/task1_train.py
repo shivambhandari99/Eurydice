@@ -59,7 +59,7 @@ def main(args):
     model.to(device)
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(model.parameters(), weight_decay=1e-3, lr = 0.01, momentum=0.9)
+    optimizer = torch.optim.SGD(model.parameters(), weight_decay=1e-3, lr = 0.001, momentum=0.9)
 
 
     for epoch in range(epochs):      
