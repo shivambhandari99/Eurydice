@@ -110,7 +110,7 @@ if __name__ == '__main__':
                         help='the number of epochs to train the model.')
     parser.add_argument('--model_dir', type=str, default='fcn_weights/',
                         help='the output file path to save the trained model weights.')
-    parser.add_argument('--is_unet', default=False, action='store_true',
+    parser.add_argument('--is_unet', default=True, action='store_true',
                         help='use this param if you implemented UNet.')
     args = parser.parse_args()
     print(args)
