@@ -48,6 +48,7 @@ def main(args):
             print(type(img))
             #img = torch.LongTensor(img)
             output = model(img[None,:])
+            print(output)
             print(output[0]['bboxes'])
 
             # 1. read image from img_path and conver to tensor
