@@ -58,7 +58,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--input_dir', type=str, default='../../data/Plane/test_data/',
                         help='the input directory that contains test_data folder')
-    parser.add_argument('--model_file', type=str, default='fasterrcnn_weights/task2.pth',
+    parser.add_argument('--model_file', type=str, default='fasterrcnn_weights/ep_39.pth',
                         help='the model (weights) generated during the training process.')
     parser.add_argument('--output_file', type=str, default='task2_out.csv',
                         help='the output csv file that has the same format as train_list.csv')
