@@ -44,6 +44,7 @@ def main(args):
             print(type(img))
             convert_tensor = transforms.ToTensor()
             img = convert_tensor(img)
+            img = img.to(device)
             print(type(img))
             #img = torch.LongTensor(img)
             output = model(img[None,:])
