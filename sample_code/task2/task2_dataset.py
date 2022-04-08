@@ -73,17 +73,16 @@ class PlaneDataset(torch.utils.data.Dataset):
             area.append((max_x-min_x)*(max_y-min_y))
             labels.append(1)
         
-        #boxes = torch.Tensor(boxes)
         area = torch.LongTensor(area)
         boxes = torch.LongTensor(boxes)
         labels = torch.LongTensor(labels)
-        #img = torch.Tensor(img)
-        #print(len(boxes),len(boxes[0]))
 
         target = {}
         target["boxes"] = boxes
         target["labels"] = labels
         target["image_id"] = torch.LongTensor(idx)
+        print(target["image_id"])
+        exit(1)
         target["area"] = area
         target["iscrowd"] = torch.LongTensor(0)
 
