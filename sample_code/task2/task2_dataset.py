@@ -57,6 +57,7 @@ class PlaneDataset(torch.utils.data.Dataset):
         boxes = []
         area = []
         labels = []
+        iscrowd = []
         for box in self.img_bbox_dict[self.img_path_list[idx]]:
             min_x = max_x = box[0][0]
             min_y = max_y = box[0][1]
@@ -72,6 +73,7 @@ class PlaneDataset(torch.utils.data.Dataset):
             boxes.append([min_x,min_y,max_x,max_y])
             area.append((max_x-min_x)*(max_y-min_y))
             labels.append(1)
+            iscrowd.append(0)
         
         area = torch.LongTensor(area)
         boxes = torch.LongTensor(boxes)
@@ -82,7 +84,7 @@ class PlaneDataset(torch.utils.data.Dataset):
         target["labels"] = labels
         target["image_id"] = torch.tensor(idx)
         target["area"] = area
-        target["iscrowd"] = torch.LongTensor(0)
+        target["iscrowd"] = torch.LongTensor(iscrowd)
 
         if self.transforms is not None:
             img, target = self.transforms(img, target)
