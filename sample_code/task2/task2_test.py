@@ -15,6 +15,7 @@ import torch
 import torchvision
 
 
+
 def main(args):
 
     model_save_path = args.model_file 
@@ -39,8 +40,9 @@ def main(args):
         for img_path in img_path_list:
             img_abs_path = input_dir+'/'+ img_path
             img = Image.open(img_abs_path)
+            img = img.ToTensor()
             print(type(img))
-            img = torch.LongTensor(img)
+            #img = torch.LongTensor(img)
             output = model(img)
             print(output[0]['bboxes'])
 
