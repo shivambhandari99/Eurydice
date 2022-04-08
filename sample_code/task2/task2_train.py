@@ -42,9 +42,13 @@ def main(mode='train'):
     dataset = PlaneDataset(img_dir = os.path.join(input_dir, 'train_data'), 
                             annot_file_path = input_dir + 'train_list.csv',
                             transforms = get_transform(train=True))
+    train_set, val_set = torch.utils.data.random_split(dataset, [30, 10])
 
-    data_loader = torch.utils.data.DataLoader(
-        dataset, batch_size=2, shuffle=True, num_workers=2,
+    data_loader_train = torch.utils.data.DataLoader(
+        train_set, batch_size=2, shuffle=True, num_workers=2,
+        collate_fn=utils.collate_fn)
+    data_loader_val = torch.utils.data.DataLoader(
+        val_set, batch_size=2, shuffle=True, num_workers=2,
         collate_fn=utils.collate_fn)
 
     model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
@@ -61,10 +65,13 @@ def main(mode='train'):
                                                    step_size=3,
                                                    gamma=0.1)
 
-
     for epoch in range(num_epochs):
-        train_one_epoch(model, optimizer, data_loader, device, epoch, 1, scaler=None)
+        train_one_epoch(model, optimizer, data_loader_train, device, epoch, 1, scaler=None)
         torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
+        model.eval()
+        evaluate(model, data_loader_val, device=device)
+
+
         # TODO:
         # train for each epoch and update learning rate
         # save model for each epoch
