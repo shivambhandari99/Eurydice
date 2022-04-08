@@ -49,7 +49,7 @@ def main(args):
             #img = torch.LongTensor(img)
             output = model(img[None,:])
             print(output)
-            print(output[0]['bboxes'])
+            print(output[0]['boxes'])
 
             # 1. read image from img_path and conver to tensor
             # 2. feed input tensor to model and get bbox with output[0]['bboxes']
