@@ -5,7 +5,7 @@
 # ---------------------------------------------------------------------------
 """ Spatial AI Assignment"""  
 # ---------------------------------------------------------------------------
-
+#/Users/shivambhandari/opt/anaconda3/envs/assignment4 
 import argparse
 import os 
 
@@ -63,7 +63,8 @@ def main(mode='train'):
 
 
     for epoch in range(num_epochs):
-        
+        train_one_epoch(model, optimizer, data_loader, device, epoch, 1, scaler=None)
+        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
         # TODO:
         # train for each epoch and update learning rate
         # save model for each epoch
@@ -76,7 +77,6 @@ def main(mode='train'):
 
 
 if __name__ == '__main__':
-
     parser = argparse.ArgumentParser()
     parser.add_argument('--input_dir', type=str, default='../../data/Plane/',
                         help=' the input directory that contains train_data folder and train_list.csv')

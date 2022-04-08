@@ -14,6 +14,7 @@ import cv2
 
 import torch
 import torchvision
+import matplotlib.pyplot as plt
 
 
 
@@ -23,7 +24,7 @@ class PlaneDataset(torch.utils.data.Dataset):
         self.transforms = transforms
         
         self.img_path_list = list(sorted(os.listdir(img_dir)))
-        
+        print(self.img_dir,self.img_path_list[0])
         with open(annot_file_path, 'r') as f:
             data = f.readlines()
             
@@ -51,13 +52,40 @@ class PlaneDataset(torch.utils.data.Dataset):
         
 
         
+        img_abs_path = self.img_dir+'/'+self.img_path_list[idx]
+        img = Image.open(img_abs_path)
+        boxes = []
+        area = []
+        labels = []
+        for box in self.img_bbox_dict[self.img_path_list[idx]]:
+            min_x = max_x = box[0][0]
+            min_y = max_y = box[0][1]
+            for point in box:
+                if(point[0]<min_x):
+                    min_x = point[0]
+                if(point[0]>max_x):
+                    max_x = point[0]
+                if(point[1]<min_y):
+                    min_y = point[1]
+                if(point[1]>max_y):
+                    max_y = point[1]
+            boxes.append([min_x,min_y,max_x,max_y])
+            area.append((max_x-min_x)*(max_y-min_y))
+            labels.append(1)
+        
+        #boxes = torch.Tensor(boxes)
+        area = torch.LongTensor(area)
+        boxes = torch.LongTensor(boxes)
+        labels = torch.LongTensor(labels)
+        #img = torch.Tensor(img)
+        #print(len(boxes),len(boxes[0]))
 
         target = {}
         target["boxes"] = boxes
         target["labels"] = labels
-        target["image_id"] = image_id
+        target["image_id"] = torch.LongTensor(idx)
         target["area"] = area
-        target["iscrowd"] = iscrowd
+        target["iscrowd"] = torch.LongTensor(0)
 
         if self.transforms is not None:
             img, target = self.transforms(img, target)
