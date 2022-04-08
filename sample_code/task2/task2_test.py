@@ -45,11 +45,7 @@ def main(args):
             convert_tensor = transforms.ToTensor()
             img = convert_tensor(img)
             img = img.to(device)
-            print(type(img))
-            #img = torch.LongTensor(img)
             output = model(img[None,:])
-            print(output)
-            print(output[0]['boxes'])
             for box in output[0]['boxes']:
                 out_f.write(img_path+','+str(box)+'\n')
 
