@@ -39,6 +39,7 @@ def main(args):
         for img_path in img_path_list:
             img_abs_path = input_dir+'/'+ img_path
             img = Image.open(img_abs_path)
+            print(type(img))
             img = torch.LongTensor(img)
             output = model(img)
             print(output[0]['bboxes'])
