@@ -37,7 +37,7 @@ def main(args):
 
         line_idx = 0
         for img_path in img_path_list:
-            img_abs_path = self.img_dir+'/'+self.img_path_list[idx]
+            img_abs_path = input_dir+'/'+ img_path
             img = Image.open(img_abs_path)
             img = torch.LongTensor(img)
             output = model(img)
