@@ -66,8 +66,9 @@ def main(mode='train'):
                                                    gamma=0.1)
 
     for epoch in range(num_epochs):
-        train_one_epoch(model, optimizer, data_loader_train, device, epoch, 1, scaler=None)
+        train_one_epoch(model, optimizer, data_loader_train, device, epoch, 5, scaler=None)
         torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
+        print("--------------------")
         evaluate(model, data_loader_val, device=device)
 
 
