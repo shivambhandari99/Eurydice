@@ -50,6 +50,8 @@ def main(args):
             output = model(img[None,:])
             print(output)
             print(output[0]['boxes'])
+            for box in output[0]['boxes']:
+                out_f.write(img_path+','+str(box)+'\n')
 
             # 1. read image from img_path and conver to tensor
             # 2. feed input tensor to model and get bbox with output[0]['bboxes']
