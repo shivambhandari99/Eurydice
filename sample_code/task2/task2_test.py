@@ -43,7 +43,7 @@ def main(args):
             img = Image.open(img_abs_path)
             print(type(img))
             convert_tensor = transforms.ToTensor()
-            convert_tensor(img)
+            img = convert_tensor(img)
             print(type(img))
             #img = torch.LongTensor(img)
             output = model(img)
