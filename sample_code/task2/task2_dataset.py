@@ -81,6 +81,8 @@ class PlaneDataset(torch.utils.data.Dataset):
         target["boxes"] = boxes
         target["labels"] = labels
         target["image_id"] = torch.LongTensor(idx)
+        print(idx)
+        print(torch.LongTensor(idx))
         print(target["image_id"])
         exit(1)
         target["area"] = area
