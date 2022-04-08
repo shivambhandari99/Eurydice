@@ -41,7 +41,7 @@ def main(mode='train'):
 
     dataset = PlaneDataset(img_dir = os.path.join(input_dir, 'train_data'), 
                             annot_file_path = input_dir + 'train_list.csv',
-                            transforms = get_transform(train=True))
+                            transforms = get_transform(train=False))
     train_set, val_set = torch.utils.data.random_split(dataset, [70, 10])
 
     data_loader_train = torch.utils.data.DataLoader(
@@ -67,7 +67,7 @@ def main(mode='train'):
 
     for epoch in range(num_epochs):
         train_one_epoch(model, optimizer, data_loader_train, device, epoch, 5, scaler=None)
-        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_' + str(epoch) +'.pth'))
+        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_trial' + str(epoch) +'.pth'))
         print("--------------------")
         evaluate(model, data_loader_val, device=device)
 
