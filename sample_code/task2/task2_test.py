@@ -47,7 +47,7 @@ def main(args):
             img = img.to(device)
             output = model(img[None,:])
             for box in output[0]['boxes']:
-                out_f.write(img_path+','+str(box.cpu().numpy())+'\n')
+                out_f.write(img_path+','+str(box.cpu().detach().numpy())+'\n')
 
             # 1. read image from img_path and conver to tensor
             # 2. feed input tensor to model and get bbox with output[0]['bboxes']
