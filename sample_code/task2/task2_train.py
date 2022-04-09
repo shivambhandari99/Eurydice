@@ -12,7 +12,7 @@ import os
 import torch
 import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
-from engine import train_one_epoch, evaluate
+from engine import train_one_epoch, evaluate, evaluate_loss
 from task2_dataset import PlaneDataset
 import utils
 
@@ -69,7 +69,7 @@ def main(mode='train'):
         train_one_epoch(model, optimizer, data_loader_train, device, epoch, 1, scaler=None)
         torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_trial' + str(epoch) +'.pth'))
         print("--------------------")
-        evaluate(model, data_loader_val, device=device)
+        evaluate_loss(model, data_loader_val, device=device)
 
 
         # TODO:
