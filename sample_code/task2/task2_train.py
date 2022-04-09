@@ -48,7 +48,7 @@ def main(mode='train'):
         train_set, batch_size=2, shuffle=True, num_workers=2,
         collate_fn=utils.collate_fn)
     data_loader_val = torch.utils.data.DataLoader(
-        val_set, batch_size=2, shuffle=True, num_workers=2,
+        val_set, batch_size=1, shuffle=False, num_workers=2,
         collate_fn=utils.collate_fn)
 
     model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
