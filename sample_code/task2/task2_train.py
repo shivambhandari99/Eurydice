@@ -67,7 +67,7 @@ def main(mode='train'):
 
     for epoch in range(num_epochs):
         train_one_epoch(model, optimizer, data_loader_train, device, epoch, 1, scaler=None)
-        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_trial' + str(epoch) +'.pth'))
+        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_run2' + str(epoch) +'.pth'))
         print("--------------------")
         evaluate_loss(model, data_loader_val, device=device)
         evaluate(model, data_loader_val, device=device)
