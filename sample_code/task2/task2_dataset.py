@@ -38,7 +38,7 @@ class PlaneDataset(torch.utils.data.Dataset):
                 img_bbox_dict[img_name] = [np.array(literal_eval(line.split('"')[1]))] 
             
         self.img_bbox_dict = img_bbox_dict
-        print(len(img_bbox_dict.keys()),self.img_path_list)
+        print(len(img_bbox_dict.keys()),len(self.img_path_list))
         assert len(img_bbox_dict.keys()) == len(self.img_path_list)
             
     def __getitem__(self, idx):
