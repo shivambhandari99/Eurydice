@@ -22,7 +22,7 @@ class PlaneDataset(torch.utils.data.Dataset):
     def __init__(self, img_dir, annot_file_path, transforms=None):
         self.img_dir = img_dir
         self.transforms = transforms
-        
+        print(img_dir)
         self.img_path_list = list(sorted(os.listdir(img_dir)))
         print(self.img_dir,self.img_path_list[0])
         with open(annot_file_path, 'r') as f:
