@@ -57,8 +57,8 @@ def main(mode='train'):
     
     
         
-    #params = [p for p in model.parameters() if p.requires_grad]
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.005)
+    params = [p for p in model.parameters() if p.requires_grad]
+    optimizer = torch.optim.Adam(params, lr=0.0001)
     
     lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer,
                                                    step_size=3,
