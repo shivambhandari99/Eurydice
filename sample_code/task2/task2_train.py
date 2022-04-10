@@ -44,7 +44,7 @@ def main(mode='train'):
                             transforms = get_transform(train=True))
 
     dataset_val = PlaneDataset(img_dir = os.path.join(input_dir, 'validation_data'), 
-                            annot_file_path = input_dir + 'validation_data.csv',
+                            annot_file_path = input_dir + 'validation_list.csv',
                             transforms = get_transform(train=False))
 
 
