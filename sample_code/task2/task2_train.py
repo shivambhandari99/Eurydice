@@ -58,7 +58,8 @@ def main(mode='train'):
     
         
     params = [p for p in model.parameters() if p.requires_grad]
-    optimizer = torch.optim.Adam(params, lr=0.00001)
+    optimizer = torch.optim.SGD(params, lr=0.005,
+                                momentum=0.9, weight_decay=0.0005)
     
     lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer,
                                                    step_size=3,
@@ -66,7 +67,7 @@ def main(mode='train'):
 
     for epoch in range(num_epochs):
         train_one_epoch(model, optimizer, data_loader_train, device, epoch, 1, scaler=None)
-        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_run5' + str(epoch) +'.pth'))
+        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_aug' + str(epoch) +'.pth'))
         print("--------------------")
         evaluate_loss(model, data_loader_val, device=device)
         evaluate(model, data_loader_val, device=device)
