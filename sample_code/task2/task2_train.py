@@ -42,13 +42,17 @@ def main(mode='train'):
     dataset = PlaneDataset(img_dir = os.path.join(input_dir, 'train_data'), 
                             annot_file_path = input_dir + 'train_list.csv',
                             transforms = get_transform(train=True))
-    train_set, val_set = torch.utils.data.random_split(dataset, [70, 10])
+
+    dataset_val = PlaneDataset(img_dir = os.path.join(input_dir, 'validation_data'), 
+                            annot_file_path = input_dir + 'validation_data.csv',
+                            transforms = get_transform(train=False))
+
 
     data_loader_train = torch.utils.data.DataLoader(
-        train_set, batch_size=2, shuffle=True, num_workers=2,
+        dataset, batch_size=2, shuffle=True, num_workers=2,
         collate_fn=utils.collate_fn)
     data_loader_val = torch.utils.data.DataLoader(
-        val_set, batch_size=1, shuffle=False, num_workers=2,
+        dataset_val, batch_size=1, shuffle=False, num_workers=2,
         collate_fn=utils.collate_fn)
 
     model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
