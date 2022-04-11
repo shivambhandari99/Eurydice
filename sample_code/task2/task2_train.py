@@ -23,7 +23,7 @@ def get_transform(train):
     transforms = []
     transforms.append(T.ToTensor())
     if train:
-        transforms.append(T.RandomIoUCrop())
+        transforms.append(T.RandomHorizontalFlip(0.5))
     return T.Compose(transforms)
 
 
@@ -70,7 +70,7 @@ def main(mode='train'):
 
     for epoch in range(num_epochs):
         train_one_epoch(model, optimizer, data_loader_train, device, epoch, 1, scaler=None)
-        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_ioucrop_' + str(epoch) +'.pth'))
+        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_RandomHorizontalFlip_' + str(epoch) +'.pth'))
         print("--------------------")
         evaluate_loss(model, data_loader_val, device=device)
         evaluate(model, data_loader_val, device=device)
