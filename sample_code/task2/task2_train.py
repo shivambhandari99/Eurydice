@@ -42,7 +42,7 @@ def main(mode='train'):
 
     dataset = PlaneDataset(img_dir = os.path.join(input_dir, 'train_data'), 
                             annot_file_path = input_dir + 'train_list.csv',
-                            transforms = get_transform(train=False))
+                            transforms = get_transform(train=True))
 
     dataset_val = PlaneDataset(img_dir = os.path.join(input_dir, 'validation_data'), 
                             annot_file_path = input_dir + 'validation_list.csv',
@@ -71,7 +71,7 @@ def main(mode='train'):
 
     for epoch in range(num_epochs):
         train_one_epoch(model, optimizer, data_loader_train, device, epoch, 1, scaler=None)
-        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_rerun3_' + str(epoch) +'.pth'))
+        torch.save(model.state_dict(), os.path.join(model_save_dir, 'ep_aug2_' + str(epoch) +'.pth'))
         print("--------------------")
         evaluate_loss(model, data_loader_val, device=device)
         evaluate(model, data_loader_val, device=device)
