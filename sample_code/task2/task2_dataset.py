@@ -22,9 +22,7 @@ class PlaneDataset(torch.utils.data.Dataset):
     def __init__(self, img_dir, annot_file_path, transforms=None):
         self.img_dir = img_dir
         self.transforms = transforms
-        print(len(os.listdir(img_dir)))
         self.img_path_list = list(sorted(os.listdir(img_dir)))
-        print(self.img_dir,self.img_path_list[0])
         with open(annot_file_path, 'r') as f:
             data = f.readlines()
             
@@ -38,7 +36,6 @@ class PlaneDataset(torch.utils.data.Dataset):
                 img_bbox_dict[img_name] = [np.array(literal_eval(line.split('"')[1]))] 
             
         self.img_bbox_dict = img_bbox_dict
-        print(len(img_bbox_dict.keys()),len(self.img_path_list))
         assert len(img_bbox_dict.keys()) == len(self.img_path_list)
             
     def __getitem__(self, idx):
