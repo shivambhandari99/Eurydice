@@ -23,7 +23,7 @@ def get_transform(train):
     transforms = []
     transforms.append(T.ToTensor())
     if train:
-        transforms.append(T.ScaleJitter())
+        transforms.append(T.ScaleJitter(target_size=(2560,2560),scale_range=(0.1, 2.0)))
     return T.Compose(transforms)
 
 
