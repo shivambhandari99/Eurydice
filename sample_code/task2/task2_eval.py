@@ -32,8 +32,8 @@ def main(args):
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-    dataset_test = PlaneDataset(img_dir = os.path.join(data_dir, 'train_data'), 
-                                annot_file_path = os.path.join(data_dir, 'train_list.csv'),
+    dataset_test = PlaneDataset(img_dir = os.path.join(data_dir, 'validation_data'), 
+                                annot_file_path = os.path.join(data_dir, 'validation_list.csv'),
                                 transforms = get_transform(train=False))
     
 
