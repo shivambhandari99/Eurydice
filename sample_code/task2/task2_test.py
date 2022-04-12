@@ -41,12 +41,10 @@ def main(args):
         for img_path in img_path_list:
             img_abs_path = input_dir+'/'+ img_path
             img = Image.open(img_abs_path)
-            print(type(img))
             convert_tensor = transforms.ToTensor()
             img = convert_tensor(img)
             img = img.to(device)
             output = model(img[None,:])
-            print(output)
             for box in output[0]['boxes']:
                 box = box.cpu().detach().numpy()
                 min_x = box[0]
