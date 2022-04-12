@@ -56,6 +56,7 @@ def main(args):
                 point_2 = tuple([max_x,max_y])
                 point_3 = tuple([max_x,min_y])
                 main_box = "\""+str([point_0,point_1,point_2,point_3,point_0])+"\""
+                print(line_idx)
                 out_f.write(str(line_idx)+','+img_path+','+main_box+'\n')
                 line_idx = line_idx + 1
                 #out_f.write(img_path+','+str(box.cpu().detach().numpy())+'\n')
