@@ -49,6 +49,7 @@ def main(args):
             i = 0
             scores = output[0]['scores'].cpu().detach().numpy().tolist()
             while(i<len(output[0]['boxes'])):
+                print(i)
                 if(scores[i]<0.5):
                     box = output[0]['boxes'][i]
                     i = i+1
