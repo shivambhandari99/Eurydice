@@ -49,10 +49,10 @@ def main(args):
             i = 0
             scores = output[0]['scores'].cpu().detach().numpy().tolist()
             while(i<len(output[0]['boxes'])):
-                print(i)
+                i = i+1
                 if(scores[i]<0.5):
                     box = output[0]['boxes'][i]
-                    i = i+1
+                    
                     box = box.cpu().detach().numpy()
                     min_x = box[0]
                     min_y = box[1]
