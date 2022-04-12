@@ -47,7 +47,18 @@ def main(args):
             img = img.to(device)
             output = model(img[None,:])
             for box in output[0]['boxes']:
-                out_f.write(img_path+','+str(box.cpu().detach().numpy())+'\n')
+                box = box.cpu().detach().numpy()
+                min_x = box[0]
+                min_y = box[1]
+                max_x = box[2]
+                max_y = box[3]
+                point_0 = set([min_x,min_y])
+                point_1 = set([min_x,max_y])
+                point_2 = set([max_x,max_y])
+                point_3 = set([max_x,min_y])
+                main_box = "\""+str([point_0,point_1,point_2,point_3,point_0])+"\""
+                out_f.write(img_path+','+main_box+'\n')
+                #out_f.write(img_path+','+str(box.cpu().detach().numpy())+'\n')
 
             # 1. read image from img_path and conver to tensor
             # 2. feed input tensor to model and get bbox with output[0]['bboxes']
