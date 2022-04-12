@@ -46,6 +46,7 @@ def main(args):
             img = convert_tensor(img)
             img = img.to(device)
             output = model(img[None,:])
+            print(output)
             for box in output[0]['boxes']:
                 box = box.cpu().detach().numpy()
                 min_x = box[0]
