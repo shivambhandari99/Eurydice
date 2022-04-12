@@ -47,18 +47,22 @@ def main(args):
             img = img.to(device)
             output = model(img[None,:])
             print(output)
-            for box in output[0]['boxes']:
-                box = box.cpu().detach().numpy()
-                min_x = box[0]
-                min_y = box[1]
-                max_x = box[2]
-                max_y = box[3]
-                point_0 = tuple([min_x,min_y])
-                point_1 = tuple([min_x,max_y])
-                point_2 = tuple([max_x,max_y])
-                point_3 = tuple([max_x,min_y])
-                main_box = "\""+str([point_0,point_1,point_2,point_3,point_0])+"\""
-                out_f.write(img_path+','+main_box+'\n')
+            i = 0
+            while(i<len(output[0]['boxes'])):
+                if(output[0]['scores'][i].cpu().detach().numpy()<0.5):
+                    box = output[0]['boxes'][i]
+                    i = i+1
+                    box = box.cpu().detach().numpy()
+                    min_x = box[0]
+                    min_y = box[1]
+                    max_x = box[2]
+                    max_y = box[3]
+                    point_0 = tuple([min_x,min_y])
+                    point_1 = tuple([min_x,max_y])
+                    point_2 = tuple([max_x,max_y])
+                    point_3 = tuple([max_x,min_y])
+                    main_box = "\""+str([point_0,point_1,point_2,point_3,point_0])+"\""
+                    out_f.write(img_path+','+main_box+'\n')
                 #out_f.write(img_path+','+str(box.cpu().detach().numpy())+'\n')
 
             # 1. read image from img_path and conver to tensor
