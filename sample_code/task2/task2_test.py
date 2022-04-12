@@ -52,10 +52,10 @@ def main(args):
                 min_y = box[1]
                 max_x = box[2]
                 max_y = box[3]
-                point_0 = set([min_x,min_y])
-                point_1 = set([min_x,max_y])
-                point_2 = set([max_x,max_y])
-                point_3 = set([max_x,min_y])
+                point_0 = tuple([min_x,min_y])
+                point_1 = tuple([min_x,max_y])
+                point_2 = tuple([max_x,max_y])
+                point_3 = tuple([max_x,min_y])
                 main_box = "\""+str([point_0,point_1,point_2,point_3,point_0])+"\""
                 out_f.write(img_path+','+main_box+'\n')
                 #out_f.write(img_path+','+str(box.cpu().detach().numpy())+'\n')
