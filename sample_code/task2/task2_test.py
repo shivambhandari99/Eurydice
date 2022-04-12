@@ -46,7 +46,6 @@ def main(args):
             img = convert_tensor(img)
             img = img.to(device)
             output = model(img[None,:])
-            print(output)
             i = 0
             while(i<len(output[0]['boxes'])):
                 if(output[0]['scores'][i].cpu().detach().numpy()<0.5):
