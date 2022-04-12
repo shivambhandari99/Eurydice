@@ -47,8 +47,8 @@ def main(args):
             img = img.to(device)
             output = model(img[None,:])
             i = 0
+            scores = output[0]['scores'].cpu().detach().numpy().tolist()
             while(i<len(output[0]['boxes'])):
-                scores = output[0]['scores'][i].cpu().detach().numpy().tolist()
                 if(scores[i]<0.5):
                     box = output[0]['boxes'][i]
                     i = i+1
