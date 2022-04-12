@@ -48,6 +48,7 @@ def main(args):
             output = model(img[None,:])
             i = 0
             scores = output[0]['scores'].cpu().detach().numpy().tolist()
+            print(len(scores))
             while(i<len(output[0]['boxes'])):
                 i = i+1
                 if(scores[i]<0.5):
